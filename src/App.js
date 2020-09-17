@@ -1,18 +1,14 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Navbar from "./Navbar"
-import Header from "./Header"
-import Course from "./Course"
+import CoursePage from './CoursePage'
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <Header />
-        <Course />
-      </div>
-    )
-  }
+function App() {
+  return (
+    <div>
+      <Navbar />
+      <CoursePage />
+    </div>
+  )
 }
 
 export default App
