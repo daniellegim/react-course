@@ -10,9 +10,7 @@ import {
 } from '@material-ui/pickers';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import NavigationIcon from '@material-ui/icons/Navigation';
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
       width: '25ch',
     },
+  },
+  title: {
+    margin: theme.spacing(2)
   },
   button: {
     margin: theme.spacing(2)
@@ -31,9 +32,9 @@ function Header(props) {
 
   return (
       <div>
-        <Box display="flex" justifyContent="center">
-            <h1>Courses</h1>
-        </Box>
+        <Typography className={classes.title} variant="h4" component="h2" align="center" color="textSecondary">
+            Courses
+        </Typography>
         <Box display="flex" flexDirection="row" justifyContent="center">
           <form className={classes.root} noValidate autoComplete="off">
               <TextField 

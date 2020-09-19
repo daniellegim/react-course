@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
 function OutlinedCard(props) {
   const classes = useStyles();
 
+  const handleCheckboxChange = () => {
+    console.log("hi")
+  }
+
   return (
       <Box display="flex" justifyContent="center">
         <Card className={classes.root} variant="outlined">
@@ -33,7 +37,7 @@ function OutlinedCard(props) {
             <Box display="flex" flexDirection="row">
                 <Checkbox
                     // checked={checked}
-                    // onChange={handleChange}
+                    onChange={handleCheckboxChange}
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
                 <Typography variant="h5" component="h2">
@@ -47,20 +51,20 @@ function OutlinedCard(props) {
                 Gmush: {props.course.gmush}
             </Typography>
             <Typography variant="body2" component="p">
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label">When?</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                    // onChange={handleChange}
-                    >
-                    {props.course.dates.map(date => (
-                        <MenuItem key={date} value={date}>
-                            {date}
-                        </MenuItem>
-                    ))}
-                    </Select>
-                </FormControl>
+              <FormControl className={classes.formControl}>
+                  <InputLabel id="demo-simple-select-label">When?</InputLabel>
+                  <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                  // onChange={handleChange}
+                  >
+                  {props.course.dates.map(date => (
+                      <MenuItem key={date} value={date}>
+                          {date}
+                      </MenuItem>
+                  ))}
+                  </Select>
+              </FormControl>
             </Typography>
         </CardContent>
         </Card>
