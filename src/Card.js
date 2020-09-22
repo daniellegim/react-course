@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -26,8 +26,15 @@ const useStyles = makeStyles((theme) => ({
 function OutlinedCard(props) {
   const classes = useStyles();
 
-  const handleCheckboxChange = () => {
-    console.log("hi")
+  const [checkboxColor, setCheckboxColor] = useState()
+  const [checkboxDisabled, setCheckboxDisabled] = useState(true)
+
+  const handleCheckboxChange = (event) => {
+    setCheckboxColor(event.target.checked ? {color: '#14f507'} : {color: ''})
+  }
+
+  const handleDateChange = () => {
+    setCheckboxDisabled(false)
   }
 
   return (
@@ -37,10 +44,11 @@ function OutlinedCard(props) {
             <Box display="flex" flexDirection="row">
                 <Checkbox
                     // checked={checked}
+                    disabled={checkboxDisabled}
                     onChange={handleCheckboxChange}
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
-                <Typography variant="h5" component="h2">
+                <Typography variant="h5" component="h2" style={checkboxColor}>
                     {props.course.name}
                 </Typography>
             </Box>
@@ -56,7 +64,7 @@ function OutlinedCard(props) {
                   <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                  // onChange={handleChange}
+                      onChange={handleDateChange}
                   >
                   {props.course.dates.map(date => (
                       <MenuItem key={date} value={date}>
