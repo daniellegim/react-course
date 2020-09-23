@@ -8,7 +8,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
 import Checkbox from '@material-ui/core/Checkbox'
+import IconButton from '@material-ui/core/IconButton'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,8 +22,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(5)
   },
   formControl: {
-    minWidth: 100,
-    marginLeft: theme.spacing(5)
+    minWidth: 80,
+    //marginRight: theme.spacing(3)
+  },
+  descriptionIcon: {
+    //position: 'absolute',
+    //right: theme.spacing(35),
   },
 }));
 
@@ -41,24 +49,20 @@ function OutlinedCard(props) {
       <Box display="flex" justifyContent="center">
         <Card className={classes.root} variant="outlined">
         <CardContent>
-            <Box display="flex" flexDirection="row">
-                <Checkbox
-                    // checked={checked}
-                    disabled={checkboxDisabled}
-                    onChange={handleCheckboxChange}
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-                <Typography variant="h5" component="h2" style={checkboxColor}>
-                    {props.course.name}
-                </Typography>
+          <Box display="flex">
+            <Box>
+              <Checkbox
+                  disabled={checkboxDisabled}
+                  onChange={handleCheckboxChange}
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
             </Box>
-            <Typography className={classes.pos} color="textSecondary">
-                {props.course.description}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-                Gmush: {props.course.gmush}
-            </Typography>
-            <Typography variant="body2" component="p">
+            <Box flexGrow={1}>
+              <Typography variant="h5" component="h2" style={checkboxColor}>
+                  {props.course.name}
+              </Typography>
+            </Box>
+            <Box>
               <FormControl className={classes.formControl}>
                   <InputLabel id="demo-simple-select-label">When?</InputLabel>
                   <Select
@@ -73,6 +77,17 @@ function OutlinedCard(props) {
                   ))}
                   </Select>
               </FormControl>
+            </Box>
+            <Box>
+              <Tooltip title={props.course.description}>
+                <IconButton aria-label="info" className={classes.descriptionIcon}>
+                  <InfoOutlinedIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          </Box>
+            <Typography className={classes.pos} color="textSecondary">
+                Gmush: {props.course.gmush}
             </Typography>
         </CardContent>
         </Card>

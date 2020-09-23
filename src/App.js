@@ -1,12 +1,15 @@
 import React from 'react'
-import Navbar from "./Navbar"
+import Navbar from './Navbar'
 import CoursePage from './CoursePage'
+import {ThemeProvider} from './ThemeContext'
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <CoursePage />
+      <ThemeProvider>
+        <Navbar />
+        <CoursePage />
+      </ThemeProvider>
     </div>
   )
 }
