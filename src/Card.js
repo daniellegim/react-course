@@ -35,15 +35,15 @@ function OutlinedCard(props) {
   const classes = useStyles();
 
   const [checkboxColor, setCheckboxColor] = useState()
-  const [checkboxDisabled, setCheckboxDisabled] = useState(true)
+  //const [checkboxDisabled, setCheckboxDisabled] = useState(true)
 
   const handleCheckboxChange = (event) => {
     setCheckboxColor(event.target.checked ? {color: '#14f507'} : {color: ''})
   }
 
-  const handleDateChange = () => {
-    setCheckboxDisabled(false)
-  }
+  // const handleDateChange = () => {
+  //   setCheckboxDisabled(false)
+  // }
 
   return (
       <Box display="flex" justifyContent="center">
@@ -52,7 +52,7 @@ function OutlinedCard(props) {
           <Box display="flex">
             <Box>
               <Checkbox
-                  disabled={checkboxDisabled}
+                  //disabled={checkboxDisabled}
                   onChange={handleCheckboxChange}
                   inputProps={{ 'aria-label': 'primary checkbox' }}
               />
@@ -68,7 +68,7 @@ function OutlinedCard(props) {
                   <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      onChange={handleDateChange}
+                      //onChange={handleDateChange}
                   >
                   {props.course.dates.map(date => (
                       <MenuItem key={date} value={date}>

@@ -1,15 +1,15 @@
 import React from 'react'
 import Navbar from './Navbar'
 import CoursePage from './CoursePage'
-import {ThemeProvider} from './ThemeContext'
+//import {CoursesProvider} from './CoursesContext'
 
 function App() {
   return (
     <div>
-      <ThemeProvider>
+      {/* <CoursesProvider> */}
         <Navbar />
         <CoursePage />
-      </ThemeProvider>
+      {/* </CoursesProvider> */}
     </div>
   )
 }

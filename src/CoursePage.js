@@ -3,6 +3,8 @@ import Header from "./Header"
 import Course from "./Course"
 import { format } from "date-fns"
 import Typography from '@material-ui/core/Typography'
+import Cart from './Cart'
+import Grid from '@material-ui/core/Grid'
 
 class CoursePage extends Component {
     constructor() {
@@ -95,7 +97,7 @@ class CoursePage extends Component {
 
     render() {
         return(
-            <div>
+            <div>    
                 <Header courses={this.state.filteredCourses}
                         courseName={this.state.courseName} 
                         selectedDate={this.state.selectedDate} 
@@ -103,7 +105,14 @@ class CoursePage extends Component {
                         handleDateChange={this.handleDateChange}
                         handleAddClick={this.handleAddClick}
                 />
-                <Course courses={this.state.filteredCourses}/>
+               <Grid container>
+                    <Grid item >
+                        <Cart />
+                    </Grid>
+                    <Grid item xs={11}>
+                        <Course courses={this.state.filteredCourses}/>
+                    </Grid>
+                </Grid>
                 {this.state.errorMessage != "" && 
                     <Typography variant="h4" component="h2" align="center" color="error">
                         {this.state.errorMessage}

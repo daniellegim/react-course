@@ -11,6 +11,7 @@ import {
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(2)
-  }
+  },
 }));
 
 function Header(props) {
@@ -61,9 +62,11 @@ function Header(props) {
               />
           </MuiPickersUtilsProvider>
           { props.courseName != "" && props.courses.length == 0 &&
-          <Fab className={classes.button} onClick={props.handleAddClick} color="secondary" aria-label="add">
-            <AddIcon />
-          </Fab>
+          <Tooltip title="Add course">
+            <Fab className={classes.button} onClick={props.handleAddClick} color="secondary" aria-label="add">
+              <AddIcon />
+            </Fab>
+          </Tooltip>
           }
         </Box>
     </div>
