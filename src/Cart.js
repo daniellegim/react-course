@@ -44,7 +44,7 @@ function Cart() {
             </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="simple-dialog-title">
                 <DialogTitle id="simple-dialog-title">
-                    <Typography className={classes.title}>
+                    <Typography className={classes.title} variant="h5">
                         Cart
                     </Typography>
                     <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>

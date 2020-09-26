@@ -1,15 +1,15 @@
 import React from 'react'
 import Navbar from './Navbar'
 import CoursePage from './CoursePage'
-//import {CoursesProvider} from './CoursesContext'
+//import {CartProvider} from './CartContext'
 
 function App() {
   return (
     <div>
-      {/* <CoursesProvider> */}
+      {/* <CartProvider> */}
         <Navbar />
         <CoursePage />
-      {/* </CoursesProvider> */}
+      {/* </CartProvider> */}
     </div>
   )
 }

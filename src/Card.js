@@ -13,6 +13,11 @@ import Checkbox from '@material-ui/core/Checkbox'
 import IconButton from '@material-ui/core/IconButton'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import Tooltip from '@material-ui/core/Tooltip'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,16 +39,46 @@ const useStyles = makeStyles((theme) => ({
 function OutlinedCard(props) {
   const classes = useStyles();
 
+  const [checked, setChecked] = useState(false)
   const [checkboxColor, setCheckboxColor] = useState()
-  //const [checkboxDisabled, setCheckboxDisabled] = useState(true)
+  const [open, setOpen] = useState(false)
+  const [selectedDate, setSelectedDate] = useState('')
 
-  const handleCheckboxChange = (event) => {
-    setCheckboxColor(event.target.checked ? {color: '#14f507'} : {color: ''})
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value)
   }
 
-  // const handleDateChange = () => {
-  //   setCheckboxDisabled(false)
-  // }
+  const handleCheckboxChange = (event) => {
+    const checked = event.target.checked
+
+    if (checked && selectedDate == '') {
+      setOpen(true)
+    } else if (checked) {
+      setCheckboxColor({color: '#14f507'})
+      props.handleCourseSelected({name: props.course.name,
+                                  date: selectedDate})
+    } else if (checked == false) {
+      setSelectedDate('')
+      setCheckboxColor({color: ''})
+      props.handleCourseRemoved({name: props.course.name,
+                                 date: selectedDate})
+    }
+
+    setChecked(checked)
+  }
+
+  const handleClose = (value) => {
+    setChecked(false)
+    setOpen(false)
+  };
+
+  const handleListItemClick = (value) => {
+    setSelectedDate(value)
+    setCheckboxColor({color: '#14f507'})
+    props.handleCourseSelected({name: props.course.name,
+                                date: value})
+    setOpen(false)
+  };
 
   return (
       <Box display="flex" justifyContent="center">
@@ -52,10 +87,20 @@ function OutlinedCard(props) {
           <Box display="flex">
             <Box>
               <Checkbox
-                  //disabled={checkboxDisabled}
+                  checked={checked}
                   onChange={handleCheckboxChange}
                   inputProps={{ 'aria-label': 'primary checkbox' }}
               />
+              <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+                <DialogTitle id="simple-dialog-title">Choose course date</DialogTitle>
+                <List>
+                  {props.course.dates.map(date => (
+                    <ListItem button onClick={() => handleListItemClick(date)} key={date}>
+                      <ListItemText primary={date} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Dialog>
             </Box>
             <Box flexGrow={1}>
               <Typography variant="h5" component="h2" style={checkboxColor}>
@@ -68,7 +113,8 @@ function OutlinedCard(props) {
                   <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      //onChange={handleDateChange}
+                      value={selectedDate}
+                      onChange={handleDateChange}
                   >
                   {props.course.dates.map(date => (
                       <MenuItem key={date} value={date}>
