@@ -8,7 +8,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
 import Checkbox from '@material-ui/core/Checkbox'
 import IconButton from '@material-ui/core/IconButton'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
@@ -51,13 +50,13 @@ function OutlinedCard(props) {
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked
 
-    if (checked && selectedDate == '') {
+    if (checked && selectedDate === '') {
       setOpen(true)
     } else if (checked) {
       setCheckboxColor({color: '#14f507'})
       props.handleCourseSelected({name: props.course.name,
                                   date: selectedDate})
-    } else if (checked == false) {
+    } else if (checked === false) {
       setSelectedDate('')
       setCheckboxColor({color: ''})
       props.handleCourseRemoved({name: props.course.name,

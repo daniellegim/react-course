@@ -61,7 +61,7 @@ function Header(props) {
                 }}
               />
           </MuiPickersUtilsProvider>
-          { props.courseName != "" && props.courses.length == 0 &&
+          { props.courseName !== "" && props.courses.length === 0 &&
           <Tooltip title="Add course">
             <Fab className={classes.button} onClick={props.handleAddClick} color="secondary" aria-label="add">
               <AddIcon />

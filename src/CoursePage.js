@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import Header from "./Header"
-import Course from "./Course"
+//import Course from "./Course"
+import Course from "./try"
 import { format } from "date-fns"
 import Typography from '@material-ui/core/Typography'
 import Cart from './Cart'
@@ -23,6 +24,17 @@ class CoursePage extends Component {
         this.handleAddClick = this.handleAddClick.bind(this)
     }
 
+    componentDidMount() {
+        fetch("https://api.mocki.io/v1/07bc5d06")
+        .then(response => response.json())
+        .then(data => {
+          this.setState({courses: data, filteredCourses: data})
+        })
+        .catch(err => {
+            this.setState({errorMessage: "Failed to load courses"})
+        })
+    }
+
     handleInputChange(event) {
         this.setState({courseName: event.target.value}, this.filterCourses)
     }
@@ -35,7 +47,7 @@ class CoursePage extends Component {
         const courseName = this.state.courseName
         const date = this.state.selectedDate
 
-        if (courseName == "") {
+        if (courseName === "") {
             this.setState({filteredCourses: this.state.courses})
         } else {
             const formattedDate = format(date, "dd.MM.yyyy")
@@ -55,13 +67,13 @@ class CoursePage extends Component {
         const formattedDate = format(selectedDate, "dd.MM.yyyy")
         
         const filtered = this.state.courses.filter(course => 
-            course.name.toLowerCase() == courseName.toLowerCase())
+            course.name.toLowerCase() === courseName.toLowerCase())
 
-        if (filtered.length != 0) {
+        if (filtered.length !== 0) {
             filtered[0].dates.push(formattedDate)
 
             const newCourses = this.state.courses.map(course => 
-                course.name.toLowerCase() == courseName ? filtered[0] : course)
+                course.name.toLowerCase() === courseName ? filtered[0] : course)
             
             this.setState({
                 courses: newCourses,
@@ -84,17 +96,6 @@ class CoursePage extends Component {
         }
     }
 
-    componentDidMount() {
-        fetch("https://api.mocki.io/v1/07bc5d06")
-        .then(response => response.json())
-        .then(data => {
-          this.setState({courses: data, filteredCourses: data})
-        })
-        .catch(err => {
-            this.setState({errorMessage: "Failed to load courses"})
-        })
-    }
-
     render() {
         return(
             <div>    
@@ -113,7 +114,7 @@ class CoursePage extends Component {
                         <Course courses={this.state.filteredCourses}/>
                     </Grid>
                 </Grid>
-                {this.state.errorMessage != "" && 
+                {this.state.errorMessage !== "" && 
                     <Typography variant="h4" component="h2" align="center" color="error">
                         {this.state.errorMessage}
                     </Typography>
