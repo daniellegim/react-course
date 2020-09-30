@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined'
@@ -18,6 +18,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import Tooltip from '@material-ui/core/Tooltip'
 import {useCart, useCartRemove, useCartClear} from './CartContext'
+import {useFutureCoursesUpdate} from './FutureCoursesContext'
 
 const useStyles = makeStyles((theme) => ({
     cartButton: {
@@ -44,6 +45,7 @@ function Cart() {
     const cart = useCart()
     const removeCart = useCartRemove()
     const clearCart = useCartClear()
+    const updateFutureCourses = useFutureCoursesUpdate()
 
     const openCart = () => {
         setOpen(true)
@@ -62,6 +64,7 @@ function Cart() {
             setLoading(true)
             window.setTimeout(() => {
               setLoading(false)
+              updateFutureCourses(cart)
               clearCart()
               setOpenMessage(true)
               window.setTimeout(() => {

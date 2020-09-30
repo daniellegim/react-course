@@ -9,11 +9,11 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import {useCartUpdate} from './CartContext'
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1)
-  }
-}))
+// const useStyles = makeStyles((theme) => ({
+//   button: {
+//     margin: theme.spacing(1)
+//   }
+// }))
 
 class Course extends React.Component {
   //const classes = useStyles()
@@ -35,13 +35,23 @@ class Course extends React.Component {
   //const updateCart = useCartUpdate()
 
   componentDidMount() {
-      const courses = this.props.courses.map(course => <Card key={course.name} 
-        course={course}
-        handleCourseSelected={this.handleCourseSelected}
-        handleCourseRemoved={this.handleCourseRemoved}/>)
-        console.log(courses)
+    const courses = this.props.courses.map(course => <Card key={course.name} 
+                                                           course={course}
+                                                           handleCourseSelected={this.handleCourseSelected}
+                                                           handleCourseRemoved={this.handleCourseRemoved}/>)
     this.setState({courses: courses})
   }
+
+  // componentDidUpdate() {
+  //     if (this.state.courses.length === 0) {
+  //       const courses = this.props.courses.map(course => <Card key={course.name} 
+  //                                                              course={course}
+  //                                                              handleCourseSelected={this.handleCourseSelected}
+  //                                                              handleCourseRemoved={this.handleCourseRemoved}/>)
+
+  //       this.setState({courses: courses})
+  //     }
+  // }
 
   handleCourseSelected(value) {
       this.setState({selectedCourses: [...this.state.selectedCourses, value]})
@@ -80,7 +90,7 @@ class Course extends React.Component {
             } 
             </Grid>
             <Grid item xs={11}>
-            {this.state.courses}
+                {this.state.courses}
             </Grid>
         </Grid>
         <Snackbar open={this.state.openSnackbar} autoHideDuration={3000} onClose={this.handleCloseSnackbar}>

@@ -1,7 +1,6 @@
 import React, {Component} from "react"
 import Header from "./Header"
-//import Course from "./Course"
-import Course from "./try"
+import Course from "./Course"
 import { format } from "date-fns"
 import Typography from '@material-ui/core/Typography'
 import Cart from './Cart'

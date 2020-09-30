@@ -1,14 +1,17 @@
 import React from 'react'
 import Navbar from './Navbar'
-import CoursePage from './CoursePage'
 import {CartProvider} from './CartContext'
+import {FutureCoursesProvider} from './FutureCoursesContext'
+import ReactRouter from './router'
 
 function App() {
   return (
     <div>
       <CartProvider>
-        <Navbar />
-        <CoursePage />
+        <FutureCoursesProvider>
+          <Navbar />
+          <ReactRouter />
+        </FutureCoursesProvider>
       </CartProvider>
     </div>
   )
