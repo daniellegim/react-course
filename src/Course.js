@@ -55,7 +55,7 @@ function Course(props) {
         <Grid item>
           { selectedCourses.length !== 0 &&
             <Tooltip title="Add to cart">
-              <Fab className={classes.button} onClick={handleAddToCart} aria-label="add">
+              <Fab className={classes.button} onClick={handleAddToCart}>
                 <AddShoppingCartIcon />
               </Fab>
             </Tooltip>

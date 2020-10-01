@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,6 +17,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import {useCart} from './CartContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,11 +28,6 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     minWidth: 80,
-    //marginRight: theme.spacing(3)
-  },
-  descriptionIcon: {
-    //position: 'absolute',
-    //right: theme.spacing(35),
   },
 }));
 
@@ -42,6 +38,13 @@ function OutlinedCard(props) {
   const [checkboxColor, setCheckboxColor] = useState()
   const [open, setOpen] = useState(false)
   const [selectedDate, setSelectedDate] = useState('')
+  const cart = useCart()
+
+  useEffect(() => {
+    setChecked(false)
+    setCheckboxColor({color: ''})
+    setSelectedDate('')
+  }, [cart])
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value)
@@ -55,12 +58,14 @@ function OutlinedCard(props) {
     } else if (checked) {
       setCheckboxColor({color: '#14f507'})
       props.handleCourseSelected({name: props.course.name,
-                                  date: selectedDate})
+                                  date: selectedDate,
+                                  description: props.course.description})
     } else if (checked === false) {
       setSelectedDate('')
       setCheckboxColor({color: ''})
       props.handleCourseRemoved({name: props.course.name,
-                                 date: selectedDate})
+                                 date: selectedDate,
+                                 description: props.course.description})
     }
 
     setChecked(checked)
@@ -75,7 +80,8 @@ function OutlinedCard(props) {
     setSelectedDate(value)
     setCheckboxColor({color: '#14f507'})
     props.handleCourseSelected({name: props.course.name,
-                                date: value})
+                                date: value,
+                                description: props.course.description})
     setOpen(false)
   };
 
@@ -125,7 +131,7 @@ function OutlinedCard(props) {
             </Box>
             <Box>
               <Tooltip title={props.course.description}>
-                <IconButton aria-label="info" className={classes.descriptionIcon}>
+                <IconButton>
                   <InfoOutlinedIcon />
                 </IconButton>
               </Tooltip>

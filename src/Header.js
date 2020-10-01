@@ -4,10 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box'
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography'

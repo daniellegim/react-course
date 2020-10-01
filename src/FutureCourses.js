@@ -1,13 +1,64 @@
 import React from 'react'
 import {useFutureCourses} from './FutureCoursesContext'
+import { makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
+import IconButton from '@material-ui/core/IconButton'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import Tooltip from '@material-ui/core/Tooltip'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: "40%"
+    },
+    title: {
+        margin: theme.spacing(2),
+        marginBottom: "3%"
+    },
+}))
 
 function FutureCourses() {
+    const classes = useStyles()
+
     const futureCourses = useFutureCourses()
 
     return(
         <div>
-            <h1>Hi</h1>
-            {futureCourses.length !== 0 && futureCourses[0].name}
+            <Typography className={classes.title} variant="h4" component="h2" align="center" color="textSecondary">
+                Future courses
+            </Typography>
+            { futureCourses.length === 0 && 
+                <Typography variant="h5" component="h2" align="center">
+                    You didn't sign up for courses yet :(
+                </Typography>
+            }
+            { futureCourses.map(course => 
+                <Box display="flex" justifyContent="center">
+                    <Card className={classes.root} variant="outlined">
+                        <CardContent>
+                            <Box display="flex">
+                                <Box flexGrow={1}>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                        {course.name}
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <Tooltip title={course.description}>
+                                        <IconButton>
+                                            <InfoOutlinedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Box>
+                            </Box>
+                            <Typography color="textSecondary">
+                                {course.date}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Box>
+            )}
         </div>
     )
 }

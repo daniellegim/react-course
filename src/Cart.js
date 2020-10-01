@@ -9,14 +9,12 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import DeleteIcon from '@material-ui/icons/Delete'
-import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined'
+import PaymentIcon from '@material-ui/icons/Payment'
+import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert from '@material-ui/lab/Alert'
-import Tooltip from '@material-ui/core/Tooltip'
 import {useCart, useCartRemove, useCartClear} from './CartContext'
 import {useFutureCoursesUpdate} from './FutureCoursesContext'
 
@@ -40,7 +38,6 @@ function Cart() {
 
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
-    //const [openSnackbar, setOpenSnackbar] = useState(false)
     const [openMessage, setOpenMessage] = useState(false)
     const cart = useCart()
     const removeCart = useCartRemove()
@@ -69,6 +66,7 @@ function Cart() {
               setOpenMessage(true)
               window.setTimeout(() => {
                 handleClose()
+                setOpenMessage(false)
               }, 3000)
             }, 2000)
         }
@@ -79,7 +77,7 @@ function Cart() {
             <Fab className={classes.cartButton} onClick={openCart} color="secondary" aria-label="Shopping cart">
                 <ShoppingCartOutlinedIcon />
             </Fab>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="simple-dialog-title">
+            <Dialog open={open} onClose={handleClose}>
                 <DialogTitle id="simple-dialog-title">
                     <Typography className={classes.title} variant="h5">
                         Cart
@@ -109,11 +107,14 @@ function Cart() {
                     }
                     { cart.length !== 0 &&
                         <Typography className={classes.title}>
-                            {/* <Tooltip title="Order"> */}
-                                <IconButton onClick={() => orderCourses()}>
-                                    <ShopOutlinedIcon style={{fontSize: 45, color: '#000000'}} />
-                                </IconButton>
-                            {/* </Tooltip> */}
+                            <Button
+                                variant="contained"
+                                style={{fontSize: 18, color: 'white', background: '#bc4ef9'}}
+                                onClick={() => orderCourses()}
+                                endIcon={<PaymentIcon />}
+                            >
+                                Pay
+                            </Button>
                         </Typography>
                     }
                     { openMessage &&
@@ -121,11 +122,6 @@ function Cart() {
                             You signed up for courses :)
                         </Typography>
                     }
-                    {/* <Snackbar open={openSnackbar} autoHideDuration={2000}>
-                        <MuiAlert severity="success" elevation={6} variant="filled">
-                            You signed up for courses :)
-                        </MuiAlert>
-                    </Snackbar> */}
                 </DialogContent>
             </Dialog>
         </div>

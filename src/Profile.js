@@ -38,7 +38,7 @@ function Profile() {
             <Card className={classes.root} variant="outlined">
             <CardActionArea>
                 <Box display="flex" justifyContent="center">
-                    <Avatar alt="Danielle Gimpel" src="/images/Danielle.JPG" className={classes.large}/>
+                    <Avatar alt="Danielle Gimpel" src="./images/Danielle.JPG" className={classes.large}/>
                 </Box>
                 <CardContent>
                 <Typography gutterBottom variant="h4" component="h2">
