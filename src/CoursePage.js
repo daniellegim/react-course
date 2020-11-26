@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import Header from "./Header"
 import Course from "./Course"
+import CoursesServer from './server/CoursesServer'
 import { format } from "date-fns"
 import Typography from '@material-ui/core/Typography'
 import Cart from './Cart'
@@ -24,14 +25,21 @@ class CoursePage extends Component {
     }
 
     componentDidMount() {
-        fetch("https://api.mocki.io/v1/07bc5d06")
-        .then(response => response.json())
-        .then(data => {
-          this.setState({courses: data, filteredCourses: data})
-        })
-        .catch(err => {
-            this.setState({errorMessage: "Failed to load courses"})
-        })
+        // const data = CoursesServer.getAllCourses()
+
+        // if (data) {
+        //     console.log(data)
+        //     this.setState({courses: data, filteredCourses: data})
+        // }
+
+        // fetch("https://api.mocki.io/v1/07bc5d06")
+        // .then(response => response.json())
+        // .then(data => {
+        //   this.setState({courses: data, filteredCourses: data})
+        // })
+        // .catch(err => {
+        //     this.setState({errorMessage: "Failed to load courses"})
+        // })
     }
 
     handleInputChange(event) {
