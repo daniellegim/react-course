@@ -24,22 +24,20 @@ class CoursePage extends Component {
         this.handleAddClick = this.handleAddClick.bind(this)
     }
 
-    componentDidMount() {
-        // const data = CoursesServer.getAllCourses()
+    async componentDidMount() {
+        const data = await CoursesServer.getAllCourses()
 
-        // if (data) {
-        //     console.log(data)
-        //     this.setState({courses: data, filteredCourses: data})
-        // }
-
-        // fetch("https://api.mocki.io/v1/07bc5d06")
-        // .then(response => response.json())
-        // .then(data => {
-        //   this.setState({courses: data, filteredCourses: data})
-        // })
-        // .catch(err => {
-        //     this.setState({errorMessage: "Failed to load courses"})
-        // })
+        if (Array.isArray(data)) {
+            const courses = data.map(course => ({
+                ...course,
+                dates: course.dates.map(date => (
+                    format(new Date(date.substring(0, 10)), "dd.MM.yyyy")
+                ))
+            }))
+            this.setState({courses: courses, filteredCourses: courses})
+        } else {
+            this.setState({errorMessage: "Failed to load courses"})
+        }
     }
 
     handleInputChange(event) {
@@ -66,7 +64,7 @@ class CoursePage extends Component {
         }
     }
 
-    handleAddClick(){
+    async handleAddClick() {
         const courseName = this.state.courseName
         const selectedDate = this.state.selectedDate
         const courseDates = []
@@ -87,7 +85,8 @@ class CoursePage extends Component {
                 filteredCourses: newCourses
             }, this.filterCourses)
         } else {
-            courseDates.push(formattedDate)
+            //courseDates.push(formattedDate)
+            courseDates.push(selectedDate)
 
             const newCourse = {
                 name: courseName,
@@ -95,6 +94,13 @@ class CoursePage extends Component {
                 gmush: "50",
                 description: courseName
             }
+
+            const courseAdded = await CoursesServer.AddNewCourse(newCourse)
+
+            console.log(courseAdded)
+
+            //for server use selected date
+            //for setState use formattedDate
 
             this.setState({
                 courses: this.state.courses.concat(newCourse),
