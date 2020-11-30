@@ -8,8 +8,14 @@ export default class CoursesServer {
                 .catch(err => err.message)
     }
 
-    static AddNewCourse(newCourse) {
+    static addNewCourse(newCourse) {
         return axios.post("/courses", { newCourse })
+                .then(response => response.data)
+                .catch(err => err.message)
+    }
+
+    static updateCourse(newDate, courseID) {
+        return axios.patch("/courses/" + courseID, { newDate })
                 .then(response => response.data)
                 .catch(err => err.message)
     }

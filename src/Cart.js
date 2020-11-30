@@ -17,6 +17,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import {useCart, useCartRemove, useCartClear} from './CartContext'
 import {useFutureCoursesUpdate} from './FutureCoursesContext'
+import { format } from "date-fns"
 
 const useStyles = makeStyles((theme) => ({
     cartButton: {
@@ -61,6 +62,9 @@ function Cart() {
             setLoading(true)
             window.setTimeout(() => {
               setLoading(false)
+              //const today = format(new Date(), "dd.MM.yyyy")
+              //const futureCourses = cart.filter(course => course.date >= today)
+              //console.log(cart, futureCourses)
               updateFutureCourses(cart)
               clearCart()
               setOpenMessage(true)
