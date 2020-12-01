@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import {useCart, useCartRemove, useCartClear} from './CartContext'
-import {useFutureCoursesUpdate} from './FutureCoursesContext'
+import {useSoldierCoursesUpdate} from './SoldierCoursesContext'
 import { format } from "date-fns"
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,7 @@ function Cart() {
     const cart = useCart()
     const removeCart = useCartRemove()
     const clearCart = useCartClear()
-    const updateFutureCourses = useFutureCoursesUpdate()
+    const updateSoldierCourses = useSoldierCoursesUpdate()
 
     const openCart = () => {
         setOpen(true)
@@ -61,17 +61,29 @@ function Cart() {
         if (!loading) {
             setLoading(true)
             window.setTimeout(() => {
-              setLoading(false)
-              //const today = format(new Date(), "dd.MM.yyyy")
-              //const futureCourses = cart.filter(course => course.date >= today)
-              //console.log(cart, futureCourses)
-              updateFutureCourses(cart)
-              clearCart()
-              setOpenMessage(true)
-              window.setTimeout(() => {
-                handleClose()
-                setOpenMessage(false)
-              }, 3000)
+                setLoading(false)
+
+                const today = new Date()
+                const formatDates = cart.map(course => ({
+                    ...course,
+                    date: new Date(course.date.split(".").reverse().join("-")) 
+                }))
+
+                const futureCourses = formatDates.filter(course => course.date >= today)
+
+                const formatFutureCourses = futureCourses.map(course => ({
+                    ...course,
+                    date: format(course.date, "dd.MM.yyyy")
+                }))
+
+                updateSoldierCourses(formatFutureCourses)
+                clearCart()
+                setOpenMessage(true)
+
+                window.setTimeout(() => {
+                    handleClose()
+                    setOpenMessage(false)
+                }, 3000)
             }, 2000)
         }
     }

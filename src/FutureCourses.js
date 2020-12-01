@@ -1,5 +1,5 @@
 import React from 'react'
-import {useFutureCourses} from './FutureCoursesContext'
+import {useSoldierCourses} from './SoldierCoursesContext'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -22,7 +22,28 @@ const useStyles = makeStyles((theme) => ({
 function FutureCourses() {
     const classes = useStyles()
 
-    const futureCourses = useFutureCourses()
+    const soldierCourses = useSoldierCourses()
+
+    const today = new Date()
+    const courses = soldierCourses.map(course => ({
+        ...course,
+        dates: course.dates.map(date => (
+            new Date(date.substring(0, 10))
+        ))
+    }))
+
+    console.log(courses)
+
+    const future = courses.filter(course => course.dates[0] >= today)
+
+    console.log(future)
+
+    const futureCourses = []
+
+    // const formatFutureCourses = futureCourses.map(course => ({
+    //     ...course,
+    //     date: format(course.date, "dd.MM.yyyy")
+    // }))
 
     return(
         <div>
@@ -53,7 +74,7 @@ function FutureCourses() {
                                 </Box>
                             </Box>
                             <Typography color="textSecondary">
-                                {course.date}
+                                {course.dates}
                             </Typography>
                         </CardContent>
                     </Card>

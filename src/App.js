@@ -1,15 +1,15 @@
 import React from 'react'
 import {CartProvider} from './CartContext'
-import {FutureCoursesProvider} from './FutureCoursesContext'
+import {SoldierCoursesProvider} from './SoldierCoursesContext'
 import ReactRouter from './router'
 
 function App() {
   return (
     <div>
       <CartProvider>
-        <FutureCoursesProvider>
+        <SoldierCoursesProvider>
           <ReactRouter />
-        </FutureCoursesProvider>
+        </SoldierCoursesProvider>
       </CartProvider>
     </div>
   )

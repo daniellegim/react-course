@@ -79,6 +79,7 @@ class CoursePage extends Component {
         const filtered = this.state.courses.filter(course => 
             course.name.toLowerCase() === courseName.toLowerCase())
 
+        // If the course already exists, add date to course
         if (filtered.length !== 0) {
 
             // Add date to course in DB
