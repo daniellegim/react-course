@@ -7,4 +7,10 @@ export default class SoldierCoursesServer {
                 .then(response => response.data)
                 .catch(err => err.message)
     }
+
+    static addNewSoldierCourse(newCourse) {
+        return axios.post("/soldierCourses", { newCourse })
+                .then(response => response.data)
+                .catch(err => err.message)
+    }
 }

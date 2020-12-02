@@ -58,13 +58,15 @@ function OutlinedCard(props) {
     } else if (checked) {
       setCheckboxColor({color: '#14f507'})
       props.handleCourseSelected({name: props.course.name,
-                                  date: selectedDate,
+                                  _id: props.course._id,
+                                  dates: [selectedDate],
                                   description: props.course.description})
     } else if (checked === false) {
       setSelectedDate('')
       setCheckboxColor({color: ''})
       props.handleCourseRemoved({name: props.course.name,
-                                 date: selectedDate,
+                                 _id: props.course._id,
+                                 dates: [selectedDate],
                                  description: props.course.description})
     }
 
@@ -80,7 +82,8 @@ function OutlinedCard(props) {
     setSelectedDate(value)
     setCheckboxColor({color: '#14f507'})
     props.handleCourseSelected({name: props.course.name,
-                                date: value,
+                                _id: props.course._id,
+                                dates: [value],
                                 description: props.course.description})
     setOpen(false)
   };

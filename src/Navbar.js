@@ -52,7 +52,7 @@ function Navbar() {
               //indicatorColor="primary"
               centered
             >
-              <Tab label="Courses I've done"/>
+              <Tab label="Courses I've done" component={Link} to="/pastCourses"/>
               <Tab label="My profile"  component={Link} to="/profile"/>
               <Tab label="Future courses" component={Link} to="/futureCourses"/>
             </Tabs>

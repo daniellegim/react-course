@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function FutureCourses() {
+function PastCourses() {
     const classes = useStyles()
 
     const soldierCourses = useSoldierCourses()
@@ -33,9 +33,9 @@ function FutureCourses() {
         ))
     }))
 
-    const future = courses.filter(course => course.dates[0] >= today)
+    const past = courses.filter(course => course.dates[0] < today)
 
-    const futureCourses = future.map(course => ({
+    const pastCourses = past.map(course => ({
         ...course,
         dates: format(course.dates[0], "dd.MM.yyyy")
     }))
@@ -43,15 +43,15 @@ function FutureCourses() {
     return(
         <div>
             <Typography className={classes.title} variant="h4" component="h2" align="center" color="textSecondary">
-                Future courses
+                Courses I have done
             </Typography>
-            { futureCourses.length === 0 && 
+            { pastCourses.length === 0 && 
                 <Typography variant="h5" component="h2" align="center">
-                    You didn't sign up for courses yet :(
+                    You didn't do any courses yet :(
                 </Typography>
             }
-            { futureCourses.map(course => 
-                <Box display="flex" justifyContent="center" key={course._id}>
+            { pastCourses.map(course => 
+                <Box display="flex" justifyContent="center">
                     <Card className={classes.root} variant="outlined">
                         <CardContent>
                             <Box display="flex">
@@ -79,4 +79,4 @@ function FutureCourses() {
     )
 }
 
-export default FutureCourses
+export default PastCourses
