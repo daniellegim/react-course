@@ -37,7 +37,7 @@ function Navbar() {
         <Grid container>
           <Grid item>
             <Toolbar variant="dense">
-              <IconButton component={Link} to="/" edge="start" className={classes.menuButton} color="inherit">
+              <IconButton component={Link} to="/coursePage" edge="start" className={classes.menuButton} color="inherit">
                   <HomeIcon />
               </IconButton>
               <Typography variant="h6" color="inherit" className={classes.menuTitle}>

@@ -18,7 +18,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import {useCart, useCartRemove, useCartClear} from './CartContext'
 import {useSoldierCoursesUpdate} from './SoldierCoursesContext'
 import SoldierCoursesServer from './server/SoldierCoursesServer'
-import { format } from "date-fns"
+import {useUser} from './UserContext'
 
 const useStyles = makeStyles((theme) => ({
     cartButton: {
@@ -45,6 +45,7 @@ function Cart() {
     const removeCart = useCartRemove()
     const clearCart = useCartClear()
     const updateSoldierCourses = useSoldierCoursesUpdate()
+    const user = useUser()
 
     const openCart = () => {
         setOpen(true)
@@ -64,34 +65,28 @@ function Cart() {
             window.setTimeout(async () => {
                 setLoading(false)
 
+                const newCourses = []
+
                 const coursesToAdd = cart.map(course => ({
-                    pernum: "8670224",
+                    pernum: user,
                     courseId: course._id,
                     date: new Date(course.dates[0].split(".").reverse().join("-"))
                 }))
 
                 // Save each course to DB
-                for (const course of coursesToAdd) {
+                for (let course of coursesToAdd) {
                     const courseAdded = await SoldierCoursesServer.addNewSoldierCourse(course) 
 
                     if (typeof courseAdded === 'string') {
                         console.log('failed')
                     } else {
-                        console.log(courseAdded)
+                        let newCourse = cart.filter(cartCourse => cartCourse._id === course.courseId)
+                        newCourse[0].dates = [courseAdded.date]
+                        newCourses.push(newCourse[0])
                     }
                 }
-  
-                // const formatDates = cart.map(course => ({
-                //     ...course,
-                //     dates: new Date(course.dates[0].split(".").reverse().join("-")) 
-                // }))
 
-                // const formatFutureCourses = futureCourses.map(course => ({
-                //     ...course,
-                //     dates: format(course.dates[0], "dd.MM.yyyy")
-                // }))
-
-                updateSoldierCourses(cart)
+                updateSoldierCourses(newCourses)
                 clearCart()
                 setOpenMessage(true)
 

@@ -1,5 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react'
 import SoldierCoursesServer from './server/SoldierCoursesServer'
+import {useUser} from './UserContext'
 
 const SoldierCoursesContext = React.createContext()
 const CoursesUpdateContext = React.createContext()
@@ -14,6 +15,7 @@ export function useSoldierCoursesUpdate() {
 
 export function SoldierCoursesProvider({ children}) {
     const [soldierCourses, setCourses] = useState([])
+    const user = useUser()
 
     function updateSoldierCourses(value) {
         setCourses([...soldierCourses, ...value])
@@ -21,14 +23,14 @@ export function SoldierCoursesProvider({ children}) {
 
     useEffect(() => {
         async function getSoldierCourses() {
-            const courses = await SoldierCoursesServer.getAllSoldierCourses("8670224")
+            const courses = await SoldierCoursesServer.getAllSoldierCourses(user)
 
             if (Array.isArray(courses)) {
                 setCourses(courses)
             }
         }
         getSoldierCourses()  
-    }, []) 
+    }, [user]) 
 
     return(
         <SoldierCoursesContext.Provider value={soldierCourses}>

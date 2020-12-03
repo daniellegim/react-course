@@ -6,9 +6,12 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import Box from '@material-ui/core/Box'
-import Danielle from './images/Danielle1.jpg'
+import Danielle from './images/Danielle.jpg'
+import Nikole from './images/Nikole.jpg'
+import Shiraz from './images/Shiraz.jpg'
 import ProfileServer from './server/ProfileServer'
 import { format } from "date-fns"
+import {useUser} from './UserContext'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,10 +30,17 @@ function Profile() {
 
     const [person, setPerson] = useState()
     const [errorMessage, setError] = useState()
+    const [pictures, setPictures] = useState([
+        { name: "Danielle", img: Danielle },
+        { name: "Nikole", img: Nikole },
+        { name: "Shiraz", img: Shiraz }
+    ])
+    const [img, setImg] = useState()
+    const user = useUser()
 
     useEffect(() => {
         async function getUser() {
-            const person = await ProfileServer.getUser("8670224")
+            const person = await ProfileServer.getUser(user)
 
             if (typeof person === 'string') {
                 setError('Failed to load user')
@@ -42,6 +52,9 @@ function Profile() {
                 }
     
                 setPerson(user)
+
+                const name = person.name.split(' ')[0]
+                setImg(pictures.filter(picture => picture.name === name))
             }
         }
         getUser()  
@@ -52,14 +65,17 @@ function Profile() {
             <Card className={classes.root} variant="outlined">
             <CardActionArea>
                 <Box display="flex" justifyContent="center">
-                    <Avatar alt="Danielle Gimpel" src={Danielle} className={classes.large}/>
+                    { img && <Avatar src={img[0].img} className={classes.large}/>}
                 </Box>
                 <CardContent>
                 <Typography gutterBottom variant="h4" component="h2">
                     {person && person.name}
                 </Typography>
                 <Typography color="textSecondary">
-                    {person && "Personal number: " + person.persnumber}
+                    {person && "Personal number: " + person.pernum}
+                </Typography>
+                <Typography color="textSecondary">
+                    {person && "Rank: " + person.rank}
                 </Typography>
                 <Typography color="textSecondary">
                     {person && "Birthday: " + person.birthday}

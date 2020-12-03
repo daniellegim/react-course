@@ -34,6 +34,7 @@ function FutureCourses() {
     }))
 
     const future = courses.filter(course => course.dates[0] >= today)
+                          .sort((a, b) => a.dates[0] > b.dates[0] ? 1 : -1)
 
     const futureCourses = future.map(course => ({
         ...course,

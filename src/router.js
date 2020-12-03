@@ -1,21 +1,45 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { Redirect } from 'react-router'
 import CoursePage from './CoursePage'
 import Profile from './Profile'
 import FutureCourses from './FutureCourses'
 import PastCourses from './PastCourses'
 import Navbar from './Navbar'
+import Login from './Login'
+import {useUser} from './UserContext'
+
+function ProtectedRoute(prop) {
+    const user = useUser()
+
+    const { component: Component, ...props } = prop
+  
+    return (
+    <Route 
+        {...props} 
+        render={props => (
+        user.length !== 0 ?
+            <Component {...props} /> :
+            <Redirect to='/' />
+        )} 
+    />
+    )
+}
 
 function ReactRouter() {
+    const user = useUser()
 
     return (
         <Router>
-            <Navbar />
+            { user.length !== 0 &&
+                <Navbar />
+            }
             <Switch>
-                <Route exact path="/" component={CoursePage} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/futureCourses" component={FutureCourses} />
-                <Route path="/pastCourses" component={PastCourses} />
+                <Route exact path="/" component={Login} />
+                <ProtectedRoute path="/coursePage" component={CoursePage} />
+                <ProtectedRoute path="/profile" component={Profile} />
+                <ProtectedRoute path="/futureCourses" component={FutureCourses} />
+                <ProtectedRoute path="/pastCourses" component={PastCourses} />
             </Switch>
         </Router>
    )
