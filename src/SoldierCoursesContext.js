@@ -23,7 +23,7 @@ export function SoldierCoursesProvider({ children}) {
 
     useEffect(() => {
         async function getSoldierCourses() {
-            const courses = await SoldierCoursesServer.getAllSoldierCourses(user)
+            const courses = await SoldierCoursesServer.getAllSoldierCourses(user.pernum)
 
             if (Array.isArray(courses)) {
                 setCourses(courses)

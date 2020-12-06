@@ -11,7 +11,7 @@ import Nikole from './images/Nikole.jpg'
 import Shiraz from './images/Shiraz.jpg'
 import ProfileServer from './server/ProfileServer'
 import { format } from "date-fns"
-import {useUser} from './UserContext'
+import { useUser } from './UserContext'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +30,7 @@ function Profile() {
 
     const [person, setPerson] = useState()
     const [errorMessage, setError] = useState()
-    const [pictures, setPictures] = useState([
+    const [pictures] = useState([
         { name: "Danielle", img: Danielle },
         { name: "Nikole", img: Nikole },
         { name: "Shiraz", img: Shiraz }
@@ -40,25 +40,25 @@ function Profile() {
 
     useEffect(() => {
         async function getUser() {
-            const person = await ProfileServer.getUser(user)
+            // const person = await ProfileServer.getUser(user)
 
-            if (typeof person === 'string') {
-                setError('Failed to load user')
-            } else {
-                const birthday = format(new Date(person.birthday.substring(0, 10)), "dd.MM.yyyy")
-                const user = {
-                    ...person,
+            // if (typeof person === 'string') {
+            //     setError('Failed to load user')
+            // } else {
+                const birthday = format(new Date(user.birthday.substring(0, 10)), "dd.MM.yyyy")
+                const person = {
+                    ...user,
                     birthday: birthday
                 }
     
-                setPerson(user)
+                setPerson(person)
 
-                const name = person.name.split(' ')[0]
+                const name = user.name.split(' ')[0]
                 setImg(pictures.filter(picture => picture.name === name))
-            }
+            //}
         }
         getUser()  
-    }, []) 
+    }, [user, pictures]) 
 
     return(
         <Box display="flex" justifyContent="center">

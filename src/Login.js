@@ -8,7 +8,10 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import {useUserUpdate} from './UserContext'
-import { Link } from "react-router-dom"
+import { useHistory } from "react-router-dom"
+import ProfileServer from './server/ProfileServer'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.main,
     },
     form: {
-      width: '100%', // Fix IE 11 issue.
+      width: '100%',
       marginTop: theme.spacing(1),
     },
     submit: {
@@ -34,15 +37,33 @@ function Login() {
     const classes = useStyles()
 
     const [persnum, setPersnum] = useState("")
+    const [openSnackbar, setOpenSnackbar] = useState(false)
     const updateUser = useUserUpdate()
+    const history = useHistory()
 
     const handleInputChange = (event) => {
         setPersnum(event.target.value)
     }
 
-    const handleSubmit = () => {
-        updateUser(persnum)
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        const user = await ProfileServer.getUser(persnum)
+
+        if (typeof user === 'string') {
+            setOpenSnackbar(true)
+        } else {
+            updateUser(user)
+            history.push("/coursePage")
+        }
     }
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return
+        }
+    
+        setOpenSnackbar(false)
+      }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -74,12 +95,16 @@ function Login() {
                     color="primary"
                     className={classes.submit}
                     onClick={handleSubmit}
-                    component={Link} to="/coursePage"
                 >
                     Sign In
                 </Button>
             </form>
         </div>
+        <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+            <MuiAlert onClose={handleCloseSnackbar} severity="error" elevation={6} variant="filled">
+                User does not exist
+            </MuiAlert>
+        </Snackbar>
         </Container>
     )
 }

@@ -52,7 +52,7 @@ function PastCourses() {
                 </Typography>
             }
             { pastCourses.map(course => 
-                <Box display="flex" justifyContent="center">
+                <Box display="flex" justifyContent="center" key={course._id}>
                     <Card className={classes.root} variant="outlined">
                         <CardContent>
                             <Box display="flex">

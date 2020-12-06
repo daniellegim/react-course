@@ -68,7 +68,7 @@ function Cart() {
                 const newCourses = []
 
                 const coursesToAdd = cart.map(course => ({
-                    pernum: user,
+                    pernum: user.pernum,
                     courseId: course._id,
                     date: new Date(course.dates[0].split(".").reverse().join("-"))
                 }))

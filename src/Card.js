@@ -16,6 +16,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent'
 import Dialog from '@material-ui/core/Dialog';
 import {useCart} from './CartContext'
 
@@ -101,13 +102,15 @@ function OutlinedCard(props) {
               />
               <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
                 <DialogTitle id="simple-dialog-title">Choose course date</DialogTitle>
-                <List>
-                  {props.course.dates.map(date => (
-                    <ListItem button onClick={() => handleListItemClick(date)} key={date}>
-                      <ListItemText primary={date} />
-                    </ListItem>
-                  ))}
-                </List>
+                <DialogContent dividers>
+                  <List>
+                    {props.course.dates.map(date => (
+                      <ListItem button onClick={() => handleListItemClick(date)} key={date}>
+                        <ListItemText primary={date} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </DialogContent>
               </Dialog>
             </Box>
             <Box flexGrow={1}>

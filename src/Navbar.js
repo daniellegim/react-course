@@ -9,6 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import HomeIcon from '@material-ui/icons/Home';
 import Grid from '@material-ui/core/Grid'
 import { Link } from "react-router-dom"
+import { useUser } from './UserContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,13 +24,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Navbar() {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  // const [value, setValue] = useState()
+  const user = useUser()
+
+  const [value, setValue] = useState()
   
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue)
-  // }
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
 
   return (
     <div className={classes.root}>
@@ -37,19 +40,19 @@ function Navbar() {
         <Grid container>
           <Grid item>
             <Toolbar variant="dense">
-              <IconButton component={Link} to="/coursePage" edge="start" className={classes.menuButton} color="inherit">
+              <IconButton onClick={e => handleChange(e, "")} component={Link} to="/coursePage" edge="start" className={classes.menuButton} color="inherit">
                   <HomeIcon />
               </IconButton>
               <Typography variant="h6" color="inherit" className={classes.menuTitle}>
-                  Hello
+                  { "Hello " + user.name.split(' ')[0]}
               </Typography>
             </Toolbar>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={7}>
             <Tabs
-              //value={value}
-              //onChange={handleChange}
-              //indicatorColor="primary"
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
               centered
             >
               <Tab label="Courses I've done" component={Link} to="/pastCourses"/>
