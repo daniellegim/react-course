@@ -7,4 +7,10 @@ export default class ProfileServer {
                 .then(response => response.data)
                 .catch(err => err.message)
     }
+
+    static addNewUser(newUser) {
+        return axios.post("/profile", { newUser })
+                .then(response => response.data)
+                .catch(err => err.message)
+    }
 }

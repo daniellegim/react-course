@@ -12,24 +12,27 @@ import { useHistory } from "react-router-dom"
 import ProfileServer from './server/ProfileServer'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
+import Link from '@material-ui/core/Link'
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
     avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
+        marginTop: theme.spacing(6),
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
     },
     form: {
-      width: '100%',
-      marginTop: theme.spacing(1),
+        width: '100%',
+        marginTop: theme.spacing(1),
     },
     submit: {
-      margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(3, 0, 2),
     },
   }))
 
@@ -63,12 +66,15 @@ function Login() {
         }
     
         setOpenSnackbar(false)
-      }
+    }
 
     return (
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+                Welcome to courses website!
+            </Typography>
             <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
             </Avatar>
@@ -81,9 +87,9 @@ function Login() {
                     margin="normal"
                     required
                     fullWidth
-                    id="persnum"
+                    id="pernum"
                     label="Personal number"
-                    autoComplete="persnum"
+                    autoComplete="pernum"
                     autoFocus
                     value={persnum}
                     onChange={handleInputChange}
@@ -98,6 +104,13 @@ function Login() {
                 >
                     Sign In
                 </Button>
+                <Grid container justify="flex-end">
+                    <Grid item>
+                        <Link href="/signUp" variant="body2">
+                            Don't have an account? Sign Up
+                        </Link>
+                    </Grid>
+                </Grid>
             </form>
         </div>
         <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>

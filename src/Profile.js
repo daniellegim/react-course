@@ -35,7 +35,7 @@ function Profile() {
         { name: "Nikole", img: Nikole },
         { name: "Shiraz", img: Shiraz }
     ])
-    const [img, setImg] = useState()
+    const [img, setImg] = useState("")
     const user = useUser()
 
     useEffect(() => {
@@ -55,6 +55,7 @@ function Profile() {
 
                 const name = user.name.split(' ')[0]
                 setImg(pictures.filter(picture => picture.name === name))
+                console.log(img)
             //}
         }
         getUser()  
@@ -65,7 +66,7 @@ function Profile() {
             <Card className={classes.root} variant="outlined">
             <CardActionArea>
                 <Box display="flex" justifyContent="center">
-                    { img && <Avatar src={img[0].img} className={classes.large}/>}
+                    { img.length !== 0 && <Avatar src={img[0].img} className={classes.large}/>}
                 </Box>
                 <CardContent>
                 <Typography gutterBottom variant="h4" component="h2">

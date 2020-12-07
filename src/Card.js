@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box'
 import Checkbox from '@material-ui/core/Checkbox'
 import IconButton from '@material-ui/core/IconButton'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import CloseIcon from '@material-ui/icons/Close'
 import Tooltip from '@material-ui/core/Tooltip'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -30,7 +31,16 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 80,
   },
-}));
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+  title: {
+    marginRight: theme.spacing(4)
+  }
+}))
 
 function OutlinedCard(props) {
   const classes = useStyles();
@@ -101,7 +111,12 @@ function OutlinedCard(props) {
                   inputProps={{ 'aria-label': 'primary checkbox' }}
               />
               <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-                <DialogTitle id="simple-dialog-title">Choose course date</DialogTitle>
+                <DialogTitle className={classes.title}>
+                  Choose course date
+                </DialogTitle>
+                <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                    <CloseIcon />
+                </IconButton>
                 <DialogContent dividers>
                   <List>
                     {props.course.dates.map(date => (

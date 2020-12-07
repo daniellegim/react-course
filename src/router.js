@@ -7,6 +7,7 @@ import FutureCourses from './FutureCourses'
 import PastCourses from './PastCourses'
 import Navbar from './Navbar'
 import Login from './Login'
+import SignUp from './SignUp'
 import {useUser} from './UserContext'
 
 function ProtectedRoute(prop) {
@@ -36,6 +37,7 @@ function ReactRouter() {
             }
             <Switch>
                 <Route exact path="/" component={Login} />
+                <Route path="/signUp" component={SignUp} />
                 <ProtectedRoute path="/coursePage" component={CoursePage} />
                 <ProtectedRoute path="/profile" component={Profile} />
                 <ProtectedRoute path="/futureCourses" component={FutureCourses} />
