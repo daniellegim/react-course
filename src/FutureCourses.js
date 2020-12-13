@@ -44,7 +44,7 @@ function FutureCourses() {
 
     return(
         <div>
-            {/* <Calendar /> */}
+            <Calendar />
             <Typography className={classes.title} variant="h4" component="h2" align="center" color="textSecondary">
                 Future courses
             </Typography>
