@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import Tooltip from '@material-ui/core/Tooltip'
 import { format } from "date-fns"
-import Calendar from './Calendar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +43,6 @@ function FutureCourses() {
 
     return(
         <div>
-            <Calendar />
             <Typography className={classes.title} variant="h4" component="h2" align="center" color="textSecondary">
                 Future courses
             </Typography>

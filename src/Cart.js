@@ -116,11 +116,11 @@ function Cart() {
                     </IconButton>
                 </DialogTitle>
                 <DialogContent dividers>
-                    { cart.length === 0 &&
+                    {/* { cart.length === 0 &&
                         <Typography variant="h6">
                             There's nothing here yet :(
                         </Typography>
-                    }
+                    } */}
                     <List>
                         {cart.map((item) => (
                             <ListItem button key={item.name}>

@@ -6,7 +6,6 @@ import ReactRouter from './router'
 
 function App() {
   return (
-    <div>
       <UserProvider>
         <CartProvider>
           <SoldierCoursesProvider>
@@ -14,7 +13,6 @@ function App() {
           </SoldierCoursesProvider>
         </CartProvider>
       </UserProvider>
-    </div>
   )
 }
 
