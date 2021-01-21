@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import {useCartUpdate} from './CartContext'
+import { useAppInsightsContext } from "@microsoft/applicationinsights-react-js"
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -22,6 +23,7 @@ function Course(props) {
   const [selectedCourses, setSelectedCourses] = useState([])
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const updateCart = useCartUpdate()
+  const appInsights = useAppInsightsContext()
 
   const handleCourseSelected = (value) => {
     setSelectedCourses([...selectedCourses, value])
@@ -32,6 +34,11 @@ function Course(props) {
   }
   
   const handleAddToCart = () => {
+    appInsights.trackEvent({ 
+      name: 'Add To Cart', 
+      properties: { selectedCourses } 
+    })
+
     updateCart(selectedCourses)
     setOpenSnackbar(true)
     setSelectedCourses([])
